@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: nginex-appset
-  namespace: argocd
+  namespace: nginex
 spec:
   generators:
     - git:
@@ -23,7 +23,7 @@ spec:
           ignoreMissingValueFiles: true
           parameters:
             - name: nameOverride
-              value: "{{ path[1] }}"
+              value: "nginx-ingress"
           valueFiles:
             # chart values, default plus override for 3rd parties
             - values.yaml
