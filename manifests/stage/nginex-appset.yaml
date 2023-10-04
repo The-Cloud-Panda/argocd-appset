@@ -17,7 +17,7 @@ spec:
       project: argocd
       source:
         repoURL: https://github.com/helm/charts.git # URL of your NGINX Git repository
-        path: stable/nginx-ingress # Path to the directory containing NGINX manifests
+        path: "{{ argocd.chart.path }}" # Path to the directory containing NGINX manifests
         targetRevision: master # Replace with the desired branch or tag
         helm:
           ignoreMissingValueFiles: true
