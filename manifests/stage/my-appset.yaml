@@ -30,10 +30,10 @@ spec:
       destination:
         server: product-devops-eks
         namespace: nginx # Namespace where NGINX will be deployed
-    syncPolicy:
-      automated:
-        allowEmpty: true
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - CreateNamespace=true
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
