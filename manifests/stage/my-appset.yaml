@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: my-appset
-  namespace: argocd
+  namespace: nginx-ingress
 spec:
   generators:
     - git:
@@ -12,7 +12,7 @@ spec:
         revision: HEAD
   template:
     metadata:
-      namespace: argocd
+      namespace: nginx-ingress
     spec:
       project: argocd
       source:
