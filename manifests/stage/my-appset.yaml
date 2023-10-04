@@ -28,7 +28,7 @@ spec:
             # chart values, default plus override for 3rd parties
             - values.yaml
       destination:
-        server: "product-devops-eks"
+        server: product-devops-eks
         namespace: nginx-ingress # Namespace where NGINX will be deployed
     syncPolicy:
       automated:
