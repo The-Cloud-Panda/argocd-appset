@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: nginex-appset
+  namespace: argocd
 spec:
   generators:
     - git:
@@ -31,7 +32,6 @@ spec:
         namespace: nginex # Namespace where NGINX will be deployed
       syncPolicy:
         automated:
-          allowEmpty: true
           prune: true
           selfHeal: true
         syncOptions:
