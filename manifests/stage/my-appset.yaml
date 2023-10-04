@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: my-appset
-  namespace: nginx-ingress
+  namespace: nginx
 spec:
   generators:
     - git:
@@ -12,7 +12,7 @@ spec:
         revision: HEAD
   template:
     metadata:
-      namespace: nginx-ingress
+      namespace: nginx
     spec:
       project: argocd
       source:
@@ -29,7 +29,7 @@ spec:
             - values.yaml
       destination:
         server: product-devops-eks
-        namespace: nginx-ingress # Namespace where NGINX will be deployed
+        namespace: nginx # Namespace where NGINX will be deployed
     syncPolicy:
       automated:
         allowEmpty: true
