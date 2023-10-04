@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: nginex-appset
-  namespace: nginex
+  namespace: argocd
 spec:
   generators:
     - git:
@@ -12,7 +12,7 @@ spec:
         revision: HEAD
   template:
     metadata:
-      namespace: nginex
+      namespace: argocd
     spec:
       project: argocd
       source:
@@ -29,7 +29,7 @@ spec:
             - values.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: nginex # Namespace where NGINX will be deployed
+        namespace: argocd # Namespace where NGINX will be deployed
       syncPolicy:
         automated:
           prune: true
