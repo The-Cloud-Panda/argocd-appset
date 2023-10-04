@@ -23,7 +23,7 @@ spec:
           ignoreMissingValueFiles: true
           parameters:
             - name: nameOverride
-              # value: "{{ path[1] }}"
+              value: "{{ path[1] }}"
           valueFiles:
             # chart values, default plus override for 3rd parties
             - values.yaml
