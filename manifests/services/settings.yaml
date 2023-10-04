@@ -1,0 +1,5 @@
+# ArgoCD app config and Helm values
+
+argocd:
+  chart:
+    path: stable/nginx-ingress
