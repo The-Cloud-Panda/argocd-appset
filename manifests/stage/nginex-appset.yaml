@@ -38,7 +38,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: guestbook-appset
-  namespace: argocd
+  namespace: guestbook
 spec:
   generators:
     - list:
@@ -49,7 +49,7 @@ spec:
               project: guestbook
   template:
     metadata:
-      name: "{{cluster}}-guestbook"
+      name: guestbook"
       namespace: guestbook
     spec:
       project: default
@@ -58,7 +58,7 @@ spec:
         targetRevision: HEAD
         path: manifests/resources
       destination:
-        server: "{{url}}"
+        server: https://kubernetes.default.svc
         namespace: guestbook
       syncPolicy:
         automated:
