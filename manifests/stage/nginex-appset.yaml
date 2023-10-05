@@ -1,32 +1,65 @@
+# apiVersion: argoproj.io/v1alpha1
+# kind: ApplicationSet
+# metadata:
+#   name: nginex-appset
+#   namespace: nginex
+# spec:
+#   generators:
+#     - git:
+#         files:
+#           - path: services/settings.yaml
+#         repoURL: https://github.com/The-Cloud-Panda/argocd-appset.git
+#         revision: HEAD
+#   template:
+#     metadata:
+#       namespace: nginex
+#     spec:
+#       project: nginex
+#       source:
+#         repoURL: https://github.com/helm/charts.git # URL of your NGINX Git repository
+#         path: stable/nginx-ingress # Path to the directory containing NGINX manifests
+#         targetRevision: master # Replace with the desired branch or tag
+#         helm:
+#           ignoreMissingValueFiles: true
+#           valueFiles:
+#             # chart values, default plus override for 3rd parties
+#             - values.yaml
+#       destination:
+#         server: https://kubernetes.default.svc
+#         namespace: nginex # Namespace where NGINX will be deployed
+#       syncPolicy:
+#         automated:
+#           prune: true
+#           selfHeal: true
+#         syncOptions:
+#           - CreateNamespace=true
+
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: nginex-appset
-  namespace: nginex
+  name: guestbook-appset
+  namespace: guestbook
 spec:
   generators:
-    - git:
-        files:
-          - path: services/settings.yaml
-        repoURL: https://github.com/The-Cloud-Panda/argocd-appset.git
-        revision: HEAD
+    - list:
+        elements:
+          - cluster: in-cluster
+            url: https://kubernetes.default.svc
+            values:
+              project: guestbook
   template:
     metadata:
-      namespace: nginex
+      name: "{{cluster}}-guestbook"
+      namespace: guestbook
     spec:
-      project: argocd
+      project: default
       source:
-        repoURL: https://github.com/helm/charts.git # URL of your NGINX Git repository
-        path: stable/nginx-ingress # Path to the directory containing NGINX manifests
-        targetRevision: master # Replace with the desired branch or tag
-        helm:
-          ignoreMissingValueFiles: true
-          valueFiles:
-            # chart values, default plus override for 3rd parties
-            - values.yaml
+        repoURL: https://github.com/The-Cloud-Panda/argocd-appset.git
+        targetRevision: HEAD
+        path: manifests/resources
       destination:
-        server: https://kubernetes.default.svc
-        namespace: nginex # Namespace where NGINX will be deployed
+        server: "{{url}}"
+        namespace: guestbook
       syncPolicy:
         automated:
           prune: true
