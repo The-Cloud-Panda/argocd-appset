@@ -38,7 +38,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: guestbook-appset
-  namespace: argocd
+  namespace: guestbook
 spec:
   generators:
     - list:
@@ -49,17 +49,17 @@ spec:
               project: guestbook
   template:
     metadata:
-      name: guestbook"
-      namespace: argocd
+      name: guestbook
+      namespace: guestbook
     spec:
       project: guestbook
       source:
         repoURL: https://github.com/The-Cloud-Panda/argocd-appset.git
-        targetRevision: main
+        targetRevision: HEAD
         path: manifests/resources
       destination:
         server: https://kubernetes.default.svc
-        namespace: argocd
+        namespace: guestbook
       syncPolicy:
         automated:
           prune: true
